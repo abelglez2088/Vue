@@ -13,13 +13,18 @@
     <input type="text" v-model="nuevaFruta" @keyup.enter="agregarFruta">
     <button @click="agregarFruta" > Agregar</button>
     <ul>
-      <li v-for="fruta of frutas">{{fruta.nombre}}-{{fruta.cantidad}}
+      <li v-for="fruta of frutas">
+        <input type="number" v-model.number="fruta.cantidad">
+        {{fruta.nombre}}
+        <button @click="fruta.cantidad++">+</button>
+        <button @click="fruta.cantidad--">-</button>
       <span v-if="fruta.cantidad===0">-sin stock</span>
     </li>
     </ul>
+    <h4>Total: {{sumarFrutas}}</h4>
 
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script src="01.js"></script>
 </body>
-</html>
+</html>|
