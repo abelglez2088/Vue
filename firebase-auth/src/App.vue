@@ -1,12 +1,23 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+      <router-link :to="{name:'inicio'}">Inicio</router-link> |
+       <router-link :to="{name:'registro'}">Registro</router-link> |
+        <router-link :to="{name:'ingreso'}">Ingreso</router-link> |
+        <a @click="cerrarSesion">Cerrar Sesión</a>
+     </div>
     <router-view/>
   </div>
 </template>
+<script>
+import {mapActions} from "vuex"
+export default {
+  name:'app',
+  methods: {
+    ...mapActions(['cerrarSesion'])
+  },
+}
+</script>
 
 <style>
 #app {
