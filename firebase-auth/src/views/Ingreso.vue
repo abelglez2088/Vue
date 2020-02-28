@@ -13,7 +13,7 @@
 <script>
 import {mapActions, mapState} from "vuex"
 export default {
-  name:'ingreso',
+  name:'Ingreso',
   data() {
     return {
       email:'',

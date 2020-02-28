@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import router from '../router'
 var firebase = require("firebase/app"); 
+import router from '@/router'
+import db from '@/main'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -25,6 +27,13 @@ export default new Vuex.Store({
         console.log(res.user.uid);
         commit('setUsuario',{email:res.user.email, uid:res.user.uid});
         router.push({name:'inicio'})
+        //crear una collection
+        db.collection(res.user.email).add({
+          nombre: 'Tarea de ejemplo'
+        })
+        .then(()=>{
+          router.push({name: 'inicio'})
+        })
       })
       .catch(err=>{
         console.log(err.message);
@@ -46,7 +55,13 @@ export default new Vuex.Store({
     },
 
     detectarUsuario({commit}, payload){
-      commit('setUsuario',{email:payload.email, uid:payload.uid})
+
+      if(payload !=null){
+        commit('setUsuario',{email:payload.email, uid:payload.uid})
+      }else{
+        commit('setUsuario',null)
+      }
+     
     },
     cerrarSesion({commit}){
       firebase.auth().signOut()
@@ -54,6 +69,14 @@ export default new Vuex.Store({
       router.push({name:'ingreso'})
     }
   },
-  modules: {
+  getters:{
+    existeUsuario(state){
+      if(state.usuario===null || state.usuario==='' || state.usuario===undefined){
+        return false
+      }else{
+        return true
+      }
+    }
   }
+ 
 })

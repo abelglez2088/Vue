@@ -1,20 +1,24 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link :to="{name:'inicio'}">Inicio</router-link> |
-       <router-link :to="{name:'registro'}">Registro</router-link> |
-        <router-link :to="{name:'ingreso'}">Ingreso</router-link> |
-        <a @click="cerrarSesion">Cerrar Sesión</a>
+      <router-link :to="{name:'inicio'}" v-if="existeUsuario">Inicio |</router-link> 
+       <router-link :to="{name:'registro'}" v-if="!existeUsuario">Registro |</router-link> 
+        <router-link :to="{name:'ingreso'}" v-if="!existeUsuario">Ingreso |</router-link> 
+        <a @click="cerrarSesion" v-if="existeUsuario">Cerrar Sesión</a>
+        
      </div>
     <router-view/>
   </div>
 </template>
 <script>
-import {mapActions} from "vuex"
+import {mapActions, mapGetters} from "vuex"
 export default {
-  name:'app',
+  name:'App',
   methods: {
     ...mapActions(['cerrarSesion'])
+  },
+  computed: {
+    ...mapGetters(['existeUsuario'])
   },
 }
 </script>
