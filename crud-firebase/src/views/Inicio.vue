@@ -6,6 +6,7 @@
     </router-link>
     <ul class="list-group mt-5">
       <li class="list-group-item"
+<!-- Mandamos LLamar al estado tareas y las mostramos en una lista utilizando el :key  para el id  -->
        v-for ="item of tareas" :key="item.id">
         {{item.id}} - {{item.nombre}}
         <div class="float-right">
@@ -22,15 +23,19 @@
 </template>
 
 <script>
+//import mapstate se usa para poder hacer uso de los estados
 import {mapActions, mapState} from 'vuex'
 export default {
   name: 'Inicio',
   methods: {
-    ...mapActions(['getTareas','eliminarTarea'])
-  },
+    //aqui damos de alta la funcion para para poderla a usar
+    ...mapActions(['getTareas','eliminarTarea'])//manda a llamar un mapAtcion a travez de un arreglo y
+  },   
+  //aqui utilizamos la funcion gettareas()                                           // como parametro le ponemos el nombre de la accion
   created() {
     this.getTareas()
   },
+  //Aqui se manda el mapState
   computed: {
     ...mapState(['tareas'])
   }
