@@ -20,6 +20,7 @@ export default new Vuex.Store({
     setTareas(state,tareas){
         state.tareas=tareas
     },
+    //asignamos a tarea el objeto que viene de nuestra accion
     setTarea(state,tarea){
       state.tarea= tarea
     },
@@ -52,22 +53,28 @@ export default new Vuex.Store({
     },
     //extrae el documento por medio del id para pasarlo al input
     getTarea({commit},id){
-       
+       //extrae un documento  con un id en especifico
       db.collection('tareas').doc(id).get()
       .then(doc=>{
+        //se consruye tarea y se asignan valores
         let tarea = doc.data();
         tarea.id = doc.id 
+        //se envia el doc a settarea a las mutacionses
         commit('setTarea',tarea)
       })
     },
+
     editarTarea({commit}, tarea){
+      //se recibe todo el objeto y se accede al id  se llama la funcion de firebase update
       db.collection('tareas').doc(tarea.id).update({
         nombre: tarea.nombre
       })
+      //redirige a la pagina principal
       .then(()=>{
         router.push({name: 'inicio'})
       })
     },
+   
     agregarTarea({commit},nombre){
       db.collection('tareas').add({
         nombre: nombre

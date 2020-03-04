@@ -6,12 +6,11 @@
     </router-link>
     <ul class="list-group mt-5">
       <li class="list-group-item"
-<!-- Mandamos LLamar al estado tareas y las mostramos en una lista utilizando el :key  para el id  -->
        v-for ="item of tareas" :key="item.id">
         {{item.id}} - {{item.nombre}}
         <div class="float-right">
            <router-link  class="btn btn-warning btn-sm mr-2"
-        :to="{name: 'editar' , params:{ id: item.id}}">
+            :to="{name: 'editar' , params:{ id: item.id}}">
           Editar
         </router-link>
         <button @click="eliminarTarea(item.id)" class="btn btn-danger btn-sm">Eliminar</button>
