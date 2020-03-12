@@ -25,7 +25,9 @@ export default new Vuex.Store({
       state.tarea= tarea
     },
     eliminarTarea(state,id){
+      //volvemos a filtrar la tabla de mi estado con el filter 
       state.tareas=state.tareas.filter(doc=>{
+        //Aqui devuelve el objeto de la tareas si el id eliminado
         return doc.id != id
       })
     }
@@ -75,7 +77,9 @@ export default new Vuex.Store({
       })
     },
    
+    //se recibe el parametro que envia el v-model llamado nombre
     agregarTarea({commit},nombre){
+      //pasamos el objeto tareas y ejecutamos la funcion add que guarda y genera un id automatico
       db.collection('tareas').add({
         nombre: nombre
       }) 
@@ -84,11 +88,16 @@ export default new Vuex.Store({
         router.push({name: 'inicio'})
       })
     },
+
+      //dispatcach manda a llamar a una tarea
     eliminarTarea({commit,dispatch}, id){
+      //se manda a llamar la coleccion tarea de firebase
       db.collection('tareas').doc(id).delete()
       .then(()=>{
         console.log('La tarea fue eliminada');
         //dispatch('getTareas')
+
+        //manda a llamar una mutacion
         commit('eliminarTarea', id)
 
       })

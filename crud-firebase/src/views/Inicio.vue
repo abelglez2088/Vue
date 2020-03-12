@@ -27,7 +27,7 @@ import {mapActions, mapState} from 'vuex'
 export default {
   name: 'Inicio',
   methods: {
-    //aqui damos de alta la funcion para para poderla a usar
+    //aqui importamos nuestras funciones para para poderlas usar
     ...mapActions(['getTareas','eliminarTarea'])//manda a llamar un mapAtcion a travez de un arreglo y
   },   
   //aqui utilizamos la funcion gettareas()                                           // como parametro le ponemos el nombre de la accion
